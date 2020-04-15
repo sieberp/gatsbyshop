@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import './layout.css'
 
 const Header = styled.header`
-  position: absolute;
+  display: block;
   top: 0;
   height: 50px;
   width: 100vw;
@@ -25,22 +25,21 @@ const Footer = styled.footer`
   background-color: grey;
 `
 
-const Container = styled.div`
-`
+
 
 const Layout = ({ children }) => {
   return (
-    <Container>
+    <>
       <Header>
         Wien-Kaffee
-    </Header>
+      </Header>
       <main>
         {children}
       </main>
       <Footer>
         Yeah
       </Footer>
-    </Container>
+    </>
   )
 }
 
