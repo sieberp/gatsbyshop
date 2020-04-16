@@ -25,8 +25,6 @@ const Footer = styled.footer`
   background-color: grey;
 `
 
-
-
 const Layout = ({ children }) => {
   return (
     <>
