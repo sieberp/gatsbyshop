@@ -35,7 +35,7 @@ const Index = () => {
                     data-item-id={product.node.id}
                     data-item-price={product.node.price}
                     data-item-name={product.node.name}
-                    data-item-url={'https://gatsbyshopcoffee.netlify.app/'}
+                    data-item-url={'/'}
                   > Add To Cart
                   </button>
                 </li>
