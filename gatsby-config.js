@@ -26,5 +26,7 @@ module.exports = {
         apiKey: process.env.SNIPCART_API_KEY,
       }
     },
+    `gatsby-transformer-sharp`,
+    `gatsby-plugin-sharp`,
   ]
 }
