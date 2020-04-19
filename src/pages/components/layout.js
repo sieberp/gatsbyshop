@@ -1,4 +1,6 @@
 import React from 'react'
+import { Helmet } from 'react-helmet'
+import { Link } from 'gatsby'
 import styled from 'styled-components'
 
 import './layout.css'
@@ -12,15 +14,22 @@ const Header = styled.header`
   text-align: center;
   font-size: 2rem;
   padding: 10px;
-  margin-bottom: 2rem; 
+  margin-bottom: 3rem; 
 `
 
 const Navbar = styled.nav`
   max-width: 960px; 
   margin: 0 auto;
   padding: 2rem 2.5rem;
+  font-size: 1.6rem;
+  font-weight: bolder;
+  display: grid;
+  grid-template-columns: 4fr 1fr 1fr 1fr 1fr;
   .title {
-  float: left
+      text-align: left;
+  }
+  a {
+    align-self: center;
   }
   button {
     float: right;
@@ -54,11 +63,18 @@ const MainContainer = styled.main`
 const Layout = ({ children }) => {
   return (
     <>
+      <Helmet htmlAttributes={{ lang: 'en' }}>
+        <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700&display=swap" rel="stylesheet"></link>
+        <title>Index</title>
+      </Helmet>
       <Header>
         <Navbar>
-          <span className="title">Wien-Kaffee</span>
+          <Link to='/'><h1 className="title">Wien-Kaffee</h1></Link>
           {/* className='snipcart-checkout' opens the cart */}
-          <button className='snipcart-checkout'>Open Cart -></button>
+          <Link to='/'>Home</Link>
+          <Link to='/shop'>Shop</Link>
+          <Link to='/'>About</Link>
+          <button className='snipcart-checkout'>Cart <span className='snipcart-items-count'></span></button>
         </Navbar>
       </Header>
       <MainContainer>
