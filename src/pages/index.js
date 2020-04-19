@@ -1,7 +1,7 @@
 import React from "react"
 import { graphql, StaticQuery } from 'gatsby'
 import Img from 'gatsby-image'
-import styled from 'styled-components'
+// import styled from 'styled-components'
 
 import Layout from './components/layout'
 import Text from './components/Text'

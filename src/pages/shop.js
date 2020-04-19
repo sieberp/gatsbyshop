@@ -13,8 +13,6 @@ const ProductList = styled.ul`
   grid-gap: 2.5rem;
 `
 const ProductCard = styled.li`
-  border-radius: 5px;
-  box-shadow: 0 0 5px 0 #333;
   padding: 5px;
   margin: 5px;
   .name {
@@ -78,16 +76,18 @@ const Shop = () => {
               data.allContentfulProduct.edges.map(product => (
                 <ProductCard key={product.node.id} >
                   <Img sizes={product.node.picture.sizes}></Img>
-                  <span className='name'>Name: {product.node.name}</span>
-                  <span className='price'>Price: {product.node.price}€</span>
-                  <button className='snipcart-add-item buyBtn'
-                    data-item-id={product.node.id}
-                    data-item-price={product.node.price}
-                    data-item-name={product.node.name}
-                    data-item-image={product.node.picture.file.url}
-                    data-item-url={'/'}
-                  > Add To Cart
+                  <p>
+                    <span className='name'>Name: {product.node.name}</span>
+                    <span className='price'>Price: {product.node.price}€</span>
+                    <button className='snipcart-add-item buyBtn'
+                      data-item-id={product.node.id}
+                      data-item-price={product.node.price}
+                      data-item-name={product.node.name}
+                      data-item-image={product.node.picture.file.url}
+                      data-item-url={'/'}
+                    > Add To Cart
                   </button>
+                  </p>
                 </ProductCard>
               ))
             }
