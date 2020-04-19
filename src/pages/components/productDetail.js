@@ -44,22 +44,6 @@ const ProductImage = styled(Img)`
   grid-area: pic;
 `
 
-const Description = styled.article`
-  display: inline-block;
-  grid-area: desc;
-`
-
-const CartButton = styled.button`
-  max-height: 50px;
-  border-radius: 10px;
-  border: none;
-  box-shadow: 0 0 5px #333;
-  :hover {
-    color: #fff;
-    background-color: #333;
-  }
-`
-
 const ProductDetail = ({ data }) => {
   const { name, picture, description } = data.contentfulProduct;
   return (

@@ -1,5 +1,5 @@
 import React from "react"
-import { graphql, StaticQuery } from 'gatsby'
+import { graphql, StaticQuery, Link } from 'gatsby'
 import Img from 'gatsby-image'
 import styled from 'styled-components'
 
@@ -40,6 +40,22 @@ const ProductList = styled.ul`
         color: brown;   
       }
     }
+    .product-link {
+      display: block;
+      width: 75%;
+      margin: 5px auto;
+      border: none;
+      box-sizing: border-box;
+      padding: 5px;
+      border: 0.5px solid #333;
+      background: white;
+      text-align: center;
+      :hover {
+        cursor: pointer;
+        border-color: brown;
+        color: brown;   
+      }
+    }
   }
   @media (max-width: 699px) {
     grid-template-columns: 1fr;
@@ -54,7 +70,10 @@ const ProductList = styled.ul`
       button {
         margin: initial;
         width: 50%;
-        bottom: 20%;
+      }
+      .product-link {
+        margin: initial;
+        width: 50%;
       }
     }
   }
@@ -72,6 +91,7 @@ const Shop = () => {
             name
             price
             roasttype
+            slug
             description {
               description
             }
@@ -106,8 +126,9 @@ const Shop = () => {
                       data-item-description={product.node.description.description}
                       data-item-image={product.node.picture.file.url}
                       data-item-url={'/'}
-                    > Add To Cart
+                    > Hinzufügen
                   </button>
+                    <Link to={'/products/' + product.node.slug} className="product-link">Mehr Info</Link>
                   </p>
                 </li>
               ))
