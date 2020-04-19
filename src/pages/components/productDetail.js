@@ -6,14 +6,19 @@ import Layout from "../components/layout";
 
 const SingleProductGrid = styled.div`
   display: grid;
-  grid-template: 
-  "pic pic desc desc"
-  "pic pic buy buy";
+  grid-template-areas:
+  "pic desc"
+  "options buy";
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  Img {
+    grid-area: pic;
+    padding: 1.5rem;
+    max-width: 100%;
+  }
   article {
-    display: inline-block;
     grid-area: desc;
     padding: 3rem;
-    max-width: 50vw;
     line-height: 1.2;
     font-size: 1.6rem;
   }
@@ -30,33 +35,46 @@ const SingleProductGrid = styled.div`
     padding: 5px;
     border: 1px solid #333;
     background: white;
+    word-wrap: none;
     :hover {
       cursor: pointer;
       border-color: brown;
       color: brown;   
     }
   }
+  @media (max-width: 699px) {
+    article {
+      width: 100%;
+      font-size: 1.2rem;
+    }
+    button {
+      width: 100%;
+    }
+  }
 `
 
 const ProductImage = styled(Img)`
-  width: 300px;
-  display: inline-block;
-  grid-area: pic;
 `
 
 const ProductDetail = ({ data }) => {
-  const { name, picture, description } = data.contentfulProduct;
+  const { id, name, price, picture, description, slug } = data.contentfulProduct;
   return (
     <Layout>
-      <Link to="/shop">Go back</Link>
+      <Link to="/shop">Zurück</Link>
       <h1>{name}</h1>
       <SingleProductGrid>
-        <ProductImage sizes={picture.sizes}></ProductImage>
+        <Img sizes={picture.sizes} imgStyle={{ objectFit: 'contain' }}></Img>
         <article>
           {description.description}
         </article>
-        <button>
-          In den Warenkorb
+        <button className='snipcart-add-item buyBtn'
+          data-item-id={id}
+          data-item-price={price}
+          data-item-name={name}
+          data-item-description={description.description}
+          data-item-image={picture.file.url}
+          data-item-url={'/products/' + slug}
+        > Hinzufügen
         </button>
       </SingleProductGrid>
     </Layout>
@@ -74,6 +92,9 @@ export const pageQuery = graphql`
       id
       name
       picture {
+        file {
+          url
+        }
         sizes(maxWidth: 960) {
           ...GatsbyContentfulSizes
         }

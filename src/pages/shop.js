@@ -67,12 +67,8 @@ const ProductList = styled.ul`
       p {
         align-self: center;
       }
-      button {
-        margin: initial;
-        width: 50%;
-      }
-      .product-link {
-        margin: initial;
+      button .product-.link {
+        margin: 10px;
         width: 50%;
       }
     }
@@ -117,8 +113,8 @@ const Shop = () => {
                 <li key={product.node.id} >
                   <Img sizes={product.node.picture.sizes} imgStyle={{ objectFit: 'contain' }}></Img>
                   <p>
-                    <span className='name'>Name: {product.node.name}</span>
-                    <span className='price'>Price: {product.node.price.toFixed(2).replace('.', ',')}€</span>
+                    <span className='name'>{product.node.name}</span>
+                    <span className='price'>{product.node.price.toFixed(2).replace('.', ',')}€</span>
                     <button className='snipcart-add-item buyBtn'
                       data-item-id={product.node.id}
                       data-item-price={product.node.price}

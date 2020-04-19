@@ -5,6 +5,9 @@ const Text = styled.p`
   max-width: 500px;
   font-size: 1.4rem;
   text-align: justify;
+  @media (max-width: 699px) {
+    margin: 1rem 2rem;
+  }
 `
 
 export default Text
