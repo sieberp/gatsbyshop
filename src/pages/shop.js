@@ -67,6 +67,9 @@ const ProductList = styled.ul`
       width: 90%;
       display: grid;
       grid-template-columns: 2fr 3fr;
+      .gatsby-image-wrapper {
+        height: 100%;
+      }
       p {
         align-self: center;
       }
