@@ -12,8 +12,11 @@ const ProductList = styled.ul`
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 2.5rem;
   li {
-  padding: 5px;
-  margin: 5px;
+    padding: 5px;
+    margin: 5px;
+    .gatsby-image-wrapper {
+      height: 50%;
+    }
     .name {
       margin-top: 2rem;
     }
