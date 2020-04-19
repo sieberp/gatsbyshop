@@ -25,6 +25,7 @@ const Navbar = styled.nav`
   font-weight: bolder;
   display: grid;
   grid-template-columns: 4fr 1fr 1fr 1fr 1fr;
+  grid-gap: 5px;
   .title {
       text-align: left;
   }

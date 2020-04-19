@@ -66,7 +66,7 @@ const ProductDetail = ({ data }) => {
 export default ProductDetail;
 
 export const pageQuery = graphql`
-  query($slug: String!) {
+  query($slug: String) {
     contentfulProduct(slug: { eq: $slug }) {
       description {
         description
