@@ -11,34 +11,51 @@ const ProductList = styled.ul`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 2.5rem;
-`
-const ProductCard = styled.li`
+  li {
   padding: 5px;
   margin: 5px;
-  .name {
-    margin-top: 2rem;
+    .name {
+      margin-top: 2rem;
+    }
+    .price {
+      margin-bottom: 2rem;
+    }
+    span {
+      display: block;
+      margin: 10px;
+      letter-spacing: 0.7px;
+    }
+    button {
+      display: block;
+      width: 75%;
+      margin: 0 auto;
+      border: none;
+      box-sizing: border-box;
+      padding: 5px;
+      border: 0.5px solid #333;
+      background: white;
+      :hover {
+        cursor: pointer;
+        border-color: brown;
+        color: brown;   
+      }
+    }
   }
-  .price {
-    margin-bottom: 2rem;
-  }
-  span {
-    display: block;
-    margin: 10px;
-    letter-spacing: 0.7px;
-  }
-  button {
-    display: block;
-    width: 75%;
-    margin: 0 auto;
-    border: none;
-    box-sizing: border-box;
-    padding: 5px;
-    border: 0.5px solid #333;
-    background: white;
-    :hover {
-      cursor: pointer;
-      border-color: brown;
-      color: brown;   
+  @media (max-width: 699px) {
+    grid-template-columns: 1fr;
+    li {
+      height: 230px;
+      width: 90%;
+      display: grid;
+      grid-template-columns: 2fr 3fr;
+      p {
+        align-self: center;
+      }
+      button {
+        margin: initial;
+        width: 50%;
+        bottom: 20%;
+      }
     }
   }
 `
@@ -55,6 +72,9 @@ const Shop = () => {
             name
             price
             roasttype
+            description {
+              description
+            }
             picture {
               file {
                 url
@@ -74,21 +94,22 @@ const Shop = () => {
           <ProductList>
             {
               data.allContentfulProduct.edges.map(product => (
-                <ProductCard key={product.node.id} >
-                  <Img sizes={product.node.picture.sizes}></Img>
+                <li key={product.node.id} >
+                  <Img sizes={product.node.picture.sizes} imgStyle={{ objectFit: 'contain' }}></Img>
                   <p>
                     <span className='name'>Name: {product.node.name}</span>
-                    <span className='price'>Price: {product.node.price}€</span>
+                    <span className='price'>Price: {product.node.price.toFixed(2).replace('.', ',')}€</span>
                     <button className='snipcart-add-item buyBtn'
                       data-item-id={product.node.id}
                       data-item-price={product.node.price}
                       data-item-name={product.node.name}
+                      data-item-description={product.node.description.description}
                       data-item-image={product.node.picture.file.url}
                       data-item-url={'/'}
                     > Add To Cart
                   </button>
                   </p>
-                </ProductCard>
+                </li>
               ))
             }
           </ProductList>

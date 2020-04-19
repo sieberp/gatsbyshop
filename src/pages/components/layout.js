@@ -42,7 +42,6 @@ const Navbar = styled.nav`
   }
 `
 
-
 const Footer = styled.footer`
   bottom: 0;
   height: 50px;
@@ -63,7 +62,7 @@ const MainContainer = styled.main`
 const Layout = ({ children }) => {
   return (
     <>
-      <Helmet htmlAttributes={{ lang: 'en' }}>
+      <Helmet htmlAttributes={{ lang: 'de' }}>
         <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700&display=swap" rel="stylesheet"></link>
         <title>Index</title>
       </Helmet>
