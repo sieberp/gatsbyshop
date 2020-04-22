@@ -19,9 +19,11 @@ const ProductList = styled.ul`
     }
     .name {
       margin-top: 2rem;
+      font-weight: bolder;
     }
     .price {
       margin-bottom: 2rem;
+      color:#77a464;
     }
     span {
       display: block;
@@ -127,7 +129,7 @@ const Shop = () => {
                       data-item-name={product.node.name}
                       data-item-description={product.node.description.description}
                       data-item-image={product.node.picture.file.url}
-                      data-item-url={'/'}
+                      data-item-url={'/products/' + product.node.slug}
                     > Hinzufügen
                   </button>
                     <Link to={'/products/' + product.node.slug} className="product-link">Mehr Info</Link>
