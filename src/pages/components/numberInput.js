@@ -13,11 +13,11 @@ const Root = styled.div`
 
 const NumberInput = (number, increment, decrement) => {
   return (
-    <Root>
+    <div className='quantity-input'>
       <button className='decrement' onClick={decrement}>-</button>
       <input type='number' id='quantity' min='1' value={number} />
       <button className='increment' onClick={increment}>+</button>
-    </Root>
+    </div>
   )
 }
 

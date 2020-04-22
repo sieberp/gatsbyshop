@@ -4,7 +4,6 @@ import Img from 'gatsby-image';
 import styled from 'styled-components';
 
 import Layout from "../components/layout";
-import NumberInput from '../components/numberInput'
 
 const SingleProductGrid = styled.div`
   display: grid;
@@ -23,27 +22,46 @@ const SingleProductGrid = styled.div`
     padding: 3rem;
     line-height: 1.2;
     font-size: 1.6rem;
-    .quantit-input {
+    .quantity-input {
       display: grid;
       grid-template-columns: 1fr 2fr 1fr;
       width: 50%;
-      button.decrement {
+      margin: 2rem 0;
+      button.decrement, button.increment {
         width: initial;
         padding: 1rem;
+        background: white;
+        border: 0.5px solid black;
+      }
+      button.decrement {
+        border-right: 0;
+      }
+      button.increment {
+        border-left: 0;
+      }
+      input {
+        width: 100%;
+        text-align: center;
+        border: 0.5px solid black;
+        border-right: none;
+        border-left: none;
       }
     }
   }
-  button.snipcart-add-item {
-    grid-area: buy;
-    display: block;
+  select {
+    padding: 0.4rem;
+    border: 0.5px solid black
+  }
+  .snipcart-add-item {
+    display: inline-block;
     max-height: 50px;
     width: 50%;
     font-size: 1.6rem;
     font-weight: bolder;
-    margin: 0 auto;
+    margin: auto 2rem;
     border: none;
     box-sizing: border-box;
-    padding: 5px;
+    padding: 0.5rem;
     border: 1px solid #333;
     background: white;
     :hover {
@@ -57,16 +75,21 @@ const SingleProductGrid = styled.div`
     article {
       width: 100%;
       font-size: 1.2rem;
-    }
-    input[submit] {
-      width: 100%;
+      .quantity-input{
+        width: 100%;
+      }
+      .snipcart-add-item {
+        word-wrap: normal;
+        width: fit-content;
+      }
     }
   }
 `
 
 const ProductDetail = ({ data }) => {
-  const { id, name, price, picture, description, slug } = data.contentfulProduct;
+  const { id, name, price, picture, description, slug, packageSize } = data.contentfulProduct;
   const [quantity, setQuantity] = useState(1);
+  const [size, setSize] = useState('250g');
 
   return (
     <Layout>
@@ -78,24 +101,26 @@ const ProductDetail = ({ data }) => {
           {description.description}
           <div className='quantity-input'>
             <button className='decrement' onClick={() => setQuantity(quantity > 1 ? quantity - 1 : 1)}>-</button>
-            <input type='number' id='quantity' min='1' value={quantity} />
+            <input type='number' id='quantity' min='1' value={quantity} readOnly />
             <button className='increment' onClick={() => setQuantity(quantity < 25 ? quantity + 1 : 25)}>+</button>
           </div>
+          <select value={size} onChange={(event) => setSize(event.target.value)}>
+            {packageSize.map((size) => <option value={size.name}>{size.name}</option>)}
+          </select>
+          <button
+            className='snipcart-add-item buyBtn'
+            data-item-id={id}
+            data-item-price={price}
+            data-item-name={name}
+            data-item-description={description.description}
+            data-item-image={picture.file.url}
+            data-item-quantity={quantity}
+            data-item-custom1-name={size}
+            data-item-custom2-name='Mahlgrad'
+            data-item-custom2-options='Ganze Bohne|Espresso|Filter'
+            data-item-url={'/products/' + slug}
+          >Hinzufügen</button>
         </article>
-        <button
-          className='snipcart-add-item buyBtn'
-          data-item-id={id}
-          data-item-price={price}
-          data-item-name={name}
-          data-item-description={description.description}
-          data-item-image={picture.file.url}
-          data-item-quantity={quantity}
-          data-item-custom1-name='Größe'
-          data-item-custom1-options='250g|500g[+10.00]|1kg[+25.00]'
-          data-item-custom2-name='Mahlgrad'
-          data-item-custom2-options='Ganze Bohne|Espresso|Filter'
-          data-item-url={'/products/' + slug}
-        >Hinzufügen</button>
       </SingleProductGrid>
     </Layout >
   );
@@ -120,6 +145,10 @@ export const pageQuery = graphql`
         }
           }
       price
+      packageSize {
+        name
+        grams
+      }
       slug
       roasttype
     }

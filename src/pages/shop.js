@@ -118,23 +118,15 @@ const Shop = () => {
           <ProductList>
             {
               data.allContentfulProduct.edges.map(product => (
-                <li key={product.node.id} >
-                  <Img sizes={product.node.picture.sizes} imgStyle={{ objectFit: 'contain' }}></Img>
-                  <p>
-                    <span className='name'>{product.node.name}</span>
-                    <span className='price'>{product.node.price.toFixed(2).replace('.', ',')}€</span>
-                    <button className='snipcart-add-item buyBtn'
-                      data-item-id={product.node.id}
-                      data-item-price={product.node.price}
-                      data-item-name={product.node.name}
-                      data-item-description={product.node.description.description}
-                      data-item-image={product.node.picture.file.url}
-                      data-item-url={'/products/' + product.node.slug}
-                    > Hinzufügen
-                  </button>
-                    <Link to={'/products/' + product.node.slug} className="product-link">Mehr Info</Link>
-                  </p>
-                </li>
+                <Link to={'/products/' + product.node.slug} className="product-link">
+                  <li key={product.node.id} >
+                    <Img sizes={product.node.picture.sizes} imgStyle={{ objectFit: 'contain' }}></Img>
+                    <p>
+                      <span className='name'>{product.node.name}</span>
+                      <span className='price'>{product.node.price.toFixed(2).replace('.', ',')}€</span>
+                    </p>
+                  </li>
+                </Link>
               ))
             }
           </ProductList>
