@@ -4,85 +4,12 @@ import Img from 'gatsby-image'
 import styled from 'styled-components'
 
 import Layout from './components/layout'
+import ProductList from './components/productList'
 
-const ProductList = styled.ul`
-  list-style: none;
-  font-size: 1.4rem;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 2.5rem;
-  li {
-    padding: 5px;
-    margin: 5px;
-    .gatsby-image-wrapper {
-      height: 50%;
-    }
-    .name {
-      margin-top: 2rem;
-      font-weight: bolder;
-    }
-    .price {
-      margin-bottom: 2rem;
-      color:#77a464;
-    }
-    span {
-      display: block;
-      margin: 10px;
-      letter-spacing: 0.7px;
-    }
-    button {
-      display: block;
-      width: 75%;
-      margin: 0 auto;
-      border: none;
-      box-sizing: border-box;
-      padding: 5px;
-      border: 0.5px solid #333;
-      background: white;
-      :hover {
-        cursor: pointer;
-        border-color: brown;
-        color: brown;   
-      }
-    }
-    .product-link {
-      display: block;
-      width: 75%;
-      margin: 5px auto;
-      border: none;
-      box-sizing: border-box;
-      padding: 5px;
-      border: 0.5px solid #333;
-      background: white;
-      text-align: center;
-      :hover {
-        cursor: pointer;
-        border-color: brown;
-        color: brown;   
-      }
-    }
-  }
-  @media (max-width: 699px) {
-    grid-template-columns: 1fr;
-    li {
-      height: 230px;
-      width: 90%;
-      display: grid;
-      grid-template-columns: 2fr 3fr;
-      .gatsby-image-wrapper {
-        height: 100%;
-      }
-      p {
-        align-self: center;
-      }
-      button .product-.link {
-        margin: 10px;
-        width: 50%;
-      }
-    }
-  }
+const CategoryLink = styled(Link)`
+  font-size: 2rem;
+  margin: 0 2rem;
 `
-
 
 const Shop = () => {
   return (
@@ -110,20 +37,29 @@ const Shop = () => {
           }
         }
       }
+      allContentfulCategory {
+        edges {
+          node {
+            name
+            slug
+          }
+        }
+      }
     }
   `}
       render={data => (
         <Layout>
-
+          <span style={{ fontSize: '2rem' }}>Kategorien: </span>
+          {data.allContentfulCategory.edges.map(category => <CategoryLink to={'/products/' + category.node.slug}>{category.node.name}</CategoryLink>)}
           <ProductList>
             {
               data.allContentfulProduct.edges.map(product => (
-                <Link to={'/products/' + product.node.slug} className="product-link">
-                  <li key={product.node.id} >
+                <Link to={'/products/' + product.node.slug} className="product-link" key={product.node.id} >
+                  <li>
                     <Img sizes={product.node.picture.sizes} imgStyle={{ objectFit: 'contain' }}></Img>
                     <p>
                       <span className='name'>{product.node.name}</span>
-                      <span className='price'>{product.node.price.toFixed(2).replace('.', ',')}€</span>
+                      <span className='price'>ab {product.node.price.toFixed(2).replace('.', ',')}€</span>
                     </p>
                   </li>
                 </Link>

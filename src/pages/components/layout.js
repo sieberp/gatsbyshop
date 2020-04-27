@@ -71,7 +71,7 @@ const Layout = ({ children }) => {
     <>
       <Helmet htmlAttributes={{ lang: 'de' }}>
         <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700&display=swap" rel="stylesheet"></link>
-        <title>Index</title>
+        <title>Wienkaffee</title>
       </Helmet>
       <Header>
         <Navbar>

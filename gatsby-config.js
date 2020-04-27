@@ -8,7 +8,15 @@ require("dotenv").config({
 })
 
 module.exports = {
-  /* Your site config here */
+  siteMetadata: {
+    title: 'Wien Kaffee',
+    author: {
+      name: 'Paul Sieber',
+      email: 'paul@sieber.dev',
+    },
+    description: 'A small shop template with Contentful, Snipcart and Gatsby',
+    siteUrl: 'https://gatsbyshopcoffee.netlify.app',
+  },
   plugins: [
     {
       resolve: `gatsby-source-filesystem`,
