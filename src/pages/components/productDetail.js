@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 import Layout from "../components/layout";
 import PageTitle from './pageTitle'
+import QuantityInput from './quantityInput'
 
 const SingleProductGrid = styled.div`
   display: grid;
@@ -23,43 +24,6 @@ const SingleProductGrid = styled.div`
     padding: 3rem;
     line-height: 1.2;
     font-size: 1.6rem;
-    .quantity-input {
-      display: inline-grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      margin: 2rem 0;
-      button.decrement, button.increment {
-        width: initial;
-        padding: 1rem;
-        background: white;
-        border: 0.5px solid black;
-        :hover{
-          cursor: pointer;
-          background: linear-gradient(90deg, white, #bbb);
-        }
-      }
-        button.decrement {
-          :hover {
-            background: linear-gradient(270deg, white, #bbb)
-          }
-      }
-      button.decrement {
-        border-right: 0;
-      }
-      button.increment {
-        border-left: 0;
-      }
-      input {
-        width: 100%;
-        text-align: center;
-        border: 0.5px solid black;
-        border-right: none;
-        border-left: none;
-        :disabled {
-          background: initial;
-          color: initial;
-        }
-      }
-    }
   }
   select {
     display: inline-block;
@@ -91,6 +55,7 @@ const SingleProductGrid = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr;
     align-items: center;
+    grid-gap: 0.5rem;
     .price {
       text-align: right;
       padding-right: 2rem;
@@ -98,6 +63,11 @@ const SingleProductGrid = styled.div`
     }
   }
   @media (max-width: 699px) {
+    grid-template-areas:
+    "pic"
+    "desc";
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
     article {
       width: 100%;
       font-size: 1.2rem;
@@ -106,7 +76,6 @@ const SingleProductGrid = styled.div`
       }
       .snipcart-add-item {
         word-wrap: normal;
-        width: fit-content;
         margin: 1rem 0;
 
       }
@@ -127,6 +96,9 @@ const ProductDetail = ({ data }) => {
     setPrice(price);
   }
 
+  const increase = () => { setQuantity(quantity < 25 ? quantity + 1 : 25) }
+  const decrease = () => { setQuantity(quantity > 1 ? quantity - 1 : 1) }
+
 
   return (
     <Layout>
@@ -139,11 +111,7 @@ const ProductDetail = ({ data }) => {
               {variants.map((variant) => <option value={variant.size + 'g'}>{variant.size + 'g'}</option>)}
             </select>
             <span className="price">Preis: {selectedPrice.toFixed(2).replace('.', ',')}€</span>
-            <div className='quantity-input'>
-              <button className='decrement' onClick={() => setQuantity(quantity > 1 ? quantity - 1 : 1)}>-</button>
-              <input type='number' id='quantity' min='1' value={quantity} disabled />
-              <button className='increment' onClick={() => setQuantity(quantity < 25 ? quantity + 1 : 25)}>+</button>
-            </div>
+            <QuantityInput increase={increase} decrease={decrease} quantity={quantity} />
             <button
               className='snipcart-add-item buyBtn'
               data-item-id={id}
